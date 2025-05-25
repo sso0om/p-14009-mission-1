@@ -27,10 +27,13 @@ public class App {
                 System.out.printf("%d번 명언이 등록되었습니다.%n", wiseSaying.getId());
             } else if (cmd.equals("목록")) {
                 printWiseSayingList();
+            } else if (cmd.startsWith("삭제?id=")) {
+                deleteWiseSaying(getCmdId(cmd));
             }
         }
         sc.close();
     }
+
 
     /**
      * 명언 목록 조회
@@ -38,6 +41,37 @@ public class App {
     private void printWiseSayingList() {
         for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
             wiseSayingList.get(i).printWiseSaying();
+        }
+    }
+
+    /**
+     * 명언 삭제
+     * @param cmdId
+     */
+    private void deleteWiseSaying(long cmdId) {
+        if (cmdId == -1) {
+            return;
+        }
+
+        for (int i = 0; i < wiseSayingList.size(); i++) {
+            if (wiseSayingList.get(i).getId() == cmdId) {
+                wiseSayingList.remove(i);
+
+                System.out.printf("%d번 명언이 삭제되었습니다.%n", cmdId);
+                break;
+            }
+        }
+    }
+
+    private long getCmdId(String cmd) {
+        String[] parts = cmd.split("\\?id=");
+        if (parts.length != 2) {
+            return -1;
+        }
+        try {
+            return Long.parseLong(parts[1]);
+        } catch (NumberFormatException e) {
+            return -1;
         }
     }
 }
