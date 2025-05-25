@@ -53,16 +53,27 @@ public class App {
             return;
         }
 
+        boolean hasId = false;
         for (int i = 0; i < wiseSayingList.size(); i++) {
             if (wiseSayingList.get(i).getId() == cmdId) {
+                hasId = true;
                 wiseSayingList.remove(i);
 
                 System.out.printf("%d번 명언이 삭제되었습니다.%n", cmdId);
                 break;
             }
         }
+
+        if (!hasId) {
+            System.out.printf("%d번 명언은 존재하지 않습니다.%n", cmdId);
+        }
     }
 
+    /**
+     * 삭제할 명언 id 추출 (삭제?id=)
+     * @param cmd
+     * @return cmdId (오입력 시 -1)
+     */
     private long getCmdId(String cmd) {
         String[] parts = cmd.split("\\?id=");
         if (parts.length != 2) {
