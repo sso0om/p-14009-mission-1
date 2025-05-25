@@ -1,11 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
+    List<WiseSaying> wiseSayingList = new ArrayList<>();
+
     public void run() {
         System.out.println("== 명언 앱 ==");
         Scanner sc = new Scanner(System.in);
-        int wiseSayingId = 0;
 
         while (true) {
             System.out.print("명령) ");
@@ -13,17 +16,28 @@ public class App {
             if (cmd.equals("종료")) {
                 break;
             } else if (cmd.equals("등록")) {
-                wiseSayingId++;
-
                 System.out.print("명언 : ");
-                sc.nextLine();
+                String content = sc.nextLine();
 
                 System.out.print("작가 : ");
-                sc.nextLine();
+                String author = sc.nextLine();
 
-                System.out.printf("%d번 명언이 등록되었습니다.%n", wiseSayingId);
+                WiseSaying wiseSaying = new WiseSaying(content, author);
+                wiseSayingList.add(wiseSaying);
+                System.out.printf("%d번 명언이 등록되었습니다.%n", wiseSaying.getId());
+            } else if (cmd.equals("목록")) {
+                printWiseSayingList();
             }
         }
         sc.close();
+    }
+
+    /**
+     * 명언 목록 조회
+     */
+    private void printWiseSayingList() {
+        for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
+            wiseSayingList.get(i).printWiseSaying();
+        }
     }
 }
