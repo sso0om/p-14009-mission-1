@@ -1,17 +1,15 @@
 public class WiseSaying {
-    private static long nextId = 1;
-
-    private long id;
+    private int id;
     private String content;
     private String author;
 
-    public WiseSaying(String content, String author) {
-        this.id = nextId++;
+    public WiseSaying(int id, String content, String author) {
+        this.id = id;
         this.content = content;
         this.author = author;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -29,9 +27,5 @@ public class WiseSaying {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public void printWiseSaying() {
-        System.out.printf("%d / %s / %s%n", id, content, author);
     }
 }

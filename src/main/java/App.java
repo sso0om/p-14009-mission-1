@@ -6,6 +6,7 @@ public class App {
 
     List<WiseSaying> wiseSayingList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
+    private static int nextId = 0;
 
     /**
      * 명언 앱 실행
@@ -41,7 +42,7 @@ public class App {
         System.out.print("작가 : ");
         String author = sc.nextLine();
 
-        WiseSaying wiseSaying = new WiseSaying(content, author);
+        WiseSaying wiseSaying = new WiseSaying(++nextId, content, author);
         wiseSayingList.add(wiseSaying);
         System.out.printf("%d번 명언이 등록되었습니다.%n", wiseSaying.getId());
     }
@@ -50,8 +51,10 @@ public class App {
      * 명언 목록 조회
      */
     private void printWiseSayingList() {
-        for (int i = wiseSayingList.size() - 1; i >= 0; i--) {
-            wiseSayingList.get(i).printWiseSaying();
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("----------------------");
+        for (WiseSaying wiseSaying : wiseSayingList.reversed()) {
+            System.out.printf("%d / %s / %s%n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
     }
 
@@ -65,10 +68,9 @@ public class App {
         }
 
         boolean hasId = false;
-        for (int i = 0; i < wiseSayingList.size(); i++) {
-            if (wiseSayingList.get(i).getId() == cmdId) {
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (wiseSaying.getId() == cmdId) {
                 hasId = true;
-                WiseSaying wiseSaying = wiseSayingList.get(i);
 
                 System.out.printf("명언(기존) : %s%n", wiseSaying.getContent());
                 System.out.print("명언 : ");
